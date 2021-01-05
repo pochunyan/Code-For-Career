@@ -1,0 +1,61 @@
+#### Problem
+
+* Reverse a singly linked list
+```
+Input: 1->2->3->4->NULL
+Output: 4->3->2->1->NULL
+```
+
+---
+
+#### Thinking
+
+1. If input is NULL or only one node, we could return directly
+2. Declare three pointers: prev, cur and next
+3. cur will be the head of the linked list, prev will be NULL and next will be the next of the head
+4. Within while loop, each iteration, 
+	1. cur.next will point to prev
+	2. prev will move forward become cur
+	3. cur will be the next
+	4. next will be the cur.next
+5. Once the cur.next is NULL, means the end of the linked list, then break the loop
+6. but need to remember to point the next of the cur to the prev
+7. Return the cur, which is the new head of the reverse linked list
+
+---
+
+#### Solution
+```
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        if (head == null) return null;
+		ListNode pre = null;
+		ListNode cur = head;
+		ListNode nxt = head.next;
+		while (cur.next != null) {
+			cur.next = pre;
+			pre = cur;
+			cur = nxt;
+			nxt = cur.next;
+		}
+		cur.next = pre;
+    return cur;
+    }
+}
+```
+---
+
+#### Time/Space Complexity
+
+Time: O(n)
+Space: O(1)
